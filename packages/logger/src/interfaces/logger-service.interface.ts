@@ -2,14 +2,14 @@ import type { LoggerInterface } from './logger.interface';
 
 /**
  * Logger Service Interface
- * 
+ *
  * Defines the contract for logger service implementations.
  * Manages multiple logging channels.
  */
 export interface LoggerServiceInterface {
   /**
    * Get a logger channel by name
-   * 
+   *
    * @param channelName - Channel name (uses default if not specified)
    * @returns Logger instance
    */
@@ -17,21 +17,21 @@ export interface LoggerServiceInterface {
 
   /**
    * Get the default channel name
-   * 
+   *
    * @returns Default channel name
    */
   getDefaultChannelName(): string;
 
   /**
    * Get all configured channel names
-   * 
+   *
    * @returns Array of channel names
    */
   getChannelNames(): string[];
 
   /**
    * Check if a channel exists
-   * 
+   *
    * @param channelName - Channel name
    * @returns True if channel exists
    */

@@ -1,17 +1,17 @@
 /**
  * Dependency Injection Tokens
- * 
+ *
  * Defines DI tokens for the logger package.
  * Used with @abdokouta/react-di for dependency injection.
- * 
+ *
  * @module constants/tokens
  */
 
 /**
  * Logger configuration token
- * 
+ *
  * Used to inject the logger configuration into the LoggerService.
- * 
+ *
  * @example
  * ```typescript
  * @Injectable()
@@ -26,9 +26,9 @@ export const LOGGER_CONFIG = Symbol('LOGGER_CONFIG');
 
 /**
  * Logger service token
- * 
+ *
  * Used to inject the logger service into other services.
- * 
+ *
  * @example
  * ```typescript
  * @Injectable()

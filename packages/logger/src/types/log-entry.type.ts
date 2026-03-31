@@ -1,8 +1,8 @@
 /**
  * Log Entry Type
- * 
+ *
  * Represents a single log entry with all its metadata.
- * 
+ *
  * @module types/log-entry
  */
 

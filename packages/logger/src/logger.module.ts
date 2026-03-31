@@ -1,9 +1,9 @@
 /**
  * Logger Module
- * 
+ *
  * Configures the logger system for dependency injection.
  * Provides LoggerService (NO manager) to the application.
- * 
+ *
  * @module logger.module
  */
 
@@ -18,17 +18,17 @@ import type { LoggerConfig } from './interfaces/logger-config.interface';
 
 /**
  * Logger module
- * 
+ *
  * Provides LoggerService to the application via dependency injection.
  * The service handles channels internally (NO separate manager).
- * 
+ *
  * @example
  * ```typescript
  * import { Module } from '@abdokouta/react-di';
  * import { LoggerModule, defineConfig } from '@abdokouta/logger';
  * import { ConsoleTransporter, StorageTransporter } from '@abdokouta/logger';
  * import { LogLevel } from '@abdokouta/logger';
- * 
+ *
  * @Module({
  *   imports: [
  *     LoggerModule.forRoot(
@@ -55,22 +55,22 @@ import type { LoggerConfig } from './interfaces/logger-config.interface';
  * })
  * export class AppModule {}
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Using logger in a service
  * import { Injectable, Inject } from '@abdokouta/react-di';
  * import { LoggerService } from '@abdokouta/logger';
- * 
+ *
  * @Injectable()
  * export class UserService {
  *   constructor(
  *     @Inject(LoggerService) private logger: LoggerService
  *   ) {}
- * 
+ *
  *   async createUser(data: UserData) {
  *     this.logger.info('Creating user', { email: data.email });
- *     
+ *
  *     try {
  *       const user = await this.db.users.create(data);
  *       this.logger.info('User created', { userId: user.id });
@@ -80,7 +80,7 @@ import type { LoggerConfig } from './interfaces/logger-config.interface';
  *       throw error;
  *     }
  *   }
- * 
+ *
  *   async auditAction(action: string) {
  *     // Use specific channel
  *     const auditLogger = this.logger.channel('audit');
@@ -94,10 +94,10 @@ import type { LoggerConfig } from './interfaces/logger-config.interface';
 export class LoggerModule {
   /**
    * Configure the logger module
-   * 
+   *
    * @param config - Logger configuration (can be passed directly without defineConfig)
    * @returns Dynamic module
-   * 
+   *
    * @example
    * ```typescript
    * LoggerModule.forRoot({
@@ -128,7 +128,7 @@ export class LoggerModule {
 
   /**
    * Process configuration to add default transporters if needed
-   * 
+   *
    * @param config - Raw configuration
    * @returns Processed configuration with defaults
    * @private
@@ -140,10 +140,10 @@ export class LoggerModule {
     for (const name in config.channels) {
       if (Object.prototype.hasOwnProperty.call(config.channels, name)) {
         const channelConfig = config.channels[name];
-        
+
         // Skip if channelConfig is undefined
         if (!channelConfig) continue;
-        
+
         // If no transporters specified, add default based on channel name
         if (!channelConfig.transporters || channelConfig.transporters.length === 0) {
           if (name === 'silent') {

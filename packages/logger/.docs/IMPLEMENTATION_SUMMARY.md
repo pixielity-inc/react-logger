@@ -6,11 +6,13 @@ All dependencies installed, type checks passing, and build successful!
 
 ## Package Overview
 
-Complete Laravel-inspired logging system for Refine with multiple channels, transporters, and formatters.
+Complete Laravel-inspired logging system for Refine with multiple channels,
+transporters, and formatters.
 
 ## Architecture
 
 ### Core Principle: NO LoggerManager
+
 - **LoggerService** handles channels internally (simplified architecture)
 - No separate manager class - service manages everything
 - Follows the same pattern as CacheService
@@ -70,13 +72,15 @@ LoggerModule.forRoot(
     channels: {
       console: { transporters: [new ConsoleTransporter()] },
       storage: { transporters: [new StorageTransporter()] },
-      errors: { transporters: [
-        new ConsoleTransporter({ level: LogLevel.Error }),
-        new StorageTransporter({ key: 'error-logs' }),
-      ]},
+      errors: {
+        transporters: [
+          new ConsoleTransporter({ level: LogLevel.Error }),
+          new StorageTransporter({ key: 'error-logs' }),
+        ],
+      },
     },
   })
-)
+);
 ```
 
 ### 2. Pluggable Transporters
@@ -118,9 +122,7 @@ useLoggerContext({ component: 'UserProfile', userId });
 ```typescript
 @Injectable()
 export class UserService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async createUser(data: UserData) {
     this.logger.info('Creating user', { email: data.email });
@@ -160,9 +162,8 @@ export const testConfig = defineConfig(silentPreset);
 
 ## Build Status
 
-✅ **Type Check**: Passing
-✅ **Build**: Successful
-✅ **Output Files**:
+✅ **Type Check**: Passing ✅ **Build**: Successful ✅ **Output Files**:
+
 - `dist/index.js` (27KB) - CommonJS
 - `dist/index.mjs` (26KB) - ES Module
 - `dist/index.d.ts` (40KB) - TypeScript declarations
@@ -170,10 +171,12 @@ export const testConfig = defineConfig(silentPreset);
 ## Dependencies
 
 ### Peer Dependencies
+
 - `@abdokouta/container` - For dependency injection
 - `react` (optional) - For React hooks
 
 ### Dev Dependencies
+
 - `typescript` - Type checking
 - `tsup` - Build tool
 - `@types/react` - React types
@@ -185,13 +188,11 @@ export const testConfig = defineConfig(silentPreset);
 ```typescript
 @Injectable()
 export class PaymentService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async processPayment(orderId: string, amount: number) {
     this.logger.info('Processing payment', { orderId, amount });
-    
+
     try {
       const result = await this.chargeCard(orderId, amount);
       this.logger.info('Payment successful', { orderId });
@@ -209,7 +210,7 @@ export class PaymentService {
 ```typescript
 function UserProfile({ userId }: { userId: string }) {
   const logger = useLogger();
-  
+
   useEffect(() => {
     logger.info('Profile viewed', { userId });
   }, [userId]);
@@ -223,15 +224,13 @@ function UserProfile({ userId }: { userId: string }) {
 ```typescript
 @Injectable()
 export class AuditService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async logAction(action: string, data: any) {
     // Log to audit channel
     const auditLogger = this.logger.channel('audit');
     auditLogger.info('User action', { action, data });
-    
+
     // Also log to default channel
     this.logger.info('Action logged', { action });
   }
@@ -240,7 +239,8 @@ export class AuditService {
 
 ## Best Practices
 
-1. **Use Appropriate Log Levels**: Debug for development, Info for events, Warn for issues, Error for failures
+1. **Use Appropriate Log Levels**: Debug for development, Info for events, Warn
+   for issues, Error for failures
 2. **Add Context**: Include relevant data to make logs useful
 3. **Use Channels**: Separate concerns (console, storage, errors, audit)
 4. **Clean Up Context**: Remove sensitive data after logging
@@ -267,6 +267,7 @@ import type {
 ## Browser Compatibility
 
 Works in all modern browsers:
+
 - Chrome 80+
 - Firefox 75+
 - Safari 13.1+
@@ -274,9 +275,11 @@ Works in all modern browsers:
 
 ## Summary
 
-The @abdokouta/logger package is a complete, production-ready logging system that:
+The @abdokouta/logger package is a complete, production-ready logging system
+that:
 
-- ✅ Follows the same patterns as @abdokouta/cache (NO manager, service handles everything)
+- ✅ Follows the same patterns as @abdokouta/cache (NO manager, service handles
+  everything)
 - ✅ Supports multiple channels with different transporters
 - ✅ Provides React hooks for easy integration
 - ✅ Has comprehensive documentation with examples

@@ -1,6 +1,7 @@
 # @abdokouta/logger
 
-Laravel-inspired logging system for Refine with multiple channels, transporters, and formatters.
+Laravel-inspired logging system for Refine with multiple channels, transporters,
+and formatters.
 
 ## Features
 
@@ -68,13 +69,11 @@ import { LoggerService } from '@abdokouta/logger';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async createUser(data: UserData) {
     this.logger.info('Creating user', { email: data.email });
-    
+
     try {
       const user = await this.db.users.create(data);
       this.logger.info('User created', { userId: user.id });
@@ -117,7 +116,7 @@ function MyComponent() {
 interface LoggerModuleOptions {
   /** Default channel name */
   default: string;
-  
+
   /** Channel configurations */
   channels: Record<string, LoggerConfig>;
 }
@@ -125,7 +124,7 @@ interface LoggerModuleOptions {
 interface LoggerConfig {
   /** Transporters for this channel */
   transporters?: TransporterInterface[];
-  
+
   /** Initial shared context */
   context?: Record<string, unknown>;
 }
@@ -272,7 +271,7 @@ Outputs to browser console with colors and emoji.
 new ConsoleTransporter({
   formatter: new PrettyFormatter(), // default
   level: LogLevel.Debug, // minimum level
-})
+});
 ```
 
 ### StorageTransporter
@@ -285,7 +284,7 @@ new StorageTransporter({
   maxEntries: 100, // max entries to keep
   formatter: new JsonFormatter(), // default
   level: LogLevel.Debug, // minimum level
-})
+});
 ```
 
 ### SilentTransporter
@@ -293,7 +292,7 @@ new StorageTransporter({
 No-op transporter (discards all logs).
 
 ```typescript
-new SilentTransporter()
+new SilentTransporter();
 ```
 
 ## Formatters
@@ -303,7 +302,7 @@ new SilentTransporter()
 Colorful output with emoji (default for console).
 
 ```typescript
-new PrettyFormatter()
+new PrettyFormatter();
 // Output: 🐛 [DEBUG] [14:30:00.000] Hello world {userId: 42}
 ```
 
@@ -312,7 +311,7 @@ new PrettyFormatter()
 JSON output (default for storage).
 
 ```typescript
-new JsonFormatter()
+new JsonFormatter();
 // Output: {"level":"info","message":"Hello","timestamp":"...","context":{}}
 ```
 
@@ -321,7 +320,7 @@ new JsonFormatter()
 Plain text output.
 
 ```typescript
-new SimpleFormatter()
+new SimpleFormatter();
 // Output: [DEBUG] [2026-03-28T14:30:00.000Z] Hello world {userId: 42}
 ```
 
@@ -336,14 +335,14 @@ import { useLogger } from '@abdokouta/logger';
 
 function MyComponent() {
   const logger = useLogger();
-  
+
   // Use default channel
   logger.info('Component rendered');
-  
+
   // Use specific channel
   const errorLogger = useLogger('errors');
   errorLogger.error('Something went wrong');
-  
+
   return <div>Hello</div>;
 }
 ```
@@ -358,14 +357,14 @@ import { useLoggerContext, useLogger } from '@abdokouta/logger';
 function UserProfile({ userId }: { userId: string }) {
   // Add userId to all logs in this component
   useLoggerContext({ userId, component: 'UserProfile' });
-  
+
   const logger = useLogger();
-  
+
   const handleUpdate = () => {
     // This log will include { userId, component: 'UserProfile' }
     logger.info('Updating profile');
   };
-  
+
   return <button onClick={handleUpdate}>Update</button>;
 }
 ```
@@ -377,16 +376,14 @@ function UserProfile({ userId }: { userId: string }) {
 ```typescript
 @Injectable()
 export class AuthService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async login(email: string, password: string) {
     // Add request context
     this.logger.withContext({ email, action: 'login' });
-    
+
     this.logger.info('Login attempt');
-    
+
     try {
       const user = await this.authenticate(email, password);
       this.logger.info('Login successful', { userId: user.id });
@@ -407,13 +404,11 @@ export class AuthService {
 ```typescript
 @Injectable()
 export class PaymentService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async processPayment(orderId: string, amount: number) {
     const errorLogger = this.logger.channel('errors');
-    
+
     try {
       const result = await this.chargeCard(orderId, amount);
       this.logger.info('Payment processed', { orderId, amount });
@@ -436,25 +431,23 @@ export class PaymentService {
 ```typescript
 @Injectable()
 export class UserService {
-  constructor(
-    @Inject(LoggerService) private logger: LoggerService
-  ) {}
+  constructor(@Inject(LoggerService) private logger: LoggerService) {}
 
   async updateUser(userId: string, data: Partial<User>) {
     const auditLogger = this.logger.channel('audit');
-    
+
     auditLogger.info('User update started', {
       userId,
       changes: Object.keys(data),
     });
-    
+
     const user = await this.db.users.update(userId, data);
-    
+
     auditLogger.info('User update completed', {
       userId,
       changes: data,
     });
-    
+
     return user;
   }
 }
@@ -467,7 +460,7 @@ import { defineConfig, consolePreset, silentPreset } from '@abdokouta/logger';
 
 export const getLoggerConfig = () => {
   const env = process.env.NODE_ENV || 'development';
-  
+
   if (env === 'production') {
     return defineConfig({
       default: 'console',
@@ -484,11 +477,11 @@ export const getLoggerConfig = () => {
       },
     });
   }
-  
+
   if (env === 'test') {
     return defineConfig(silentPreset);
   }
-  
+
   // Development
   return defineConfig({
     ...consolePreset,
@@ -505,7 +498,8 @@ export const getLoggerConfig = () => {
 
 ## Best Practices
 
-1. **Use Appropriate Log Levels**: Debug for development, Info for important events, Warn for issues, Error for failures, Fatal for critical errors
+1. **Use Appropriate Log Levels**: Debug for development, Info for important
+   events, Warn for issues, Error for failures, Fatal for critical errors
 2. **Add Context**: Include relevant data to make logs useful
 3. **Use Channels**: Separate concerns (console, storage, errors, audit)
 4. **Clean Up Context**: Remove sensitive data after logging
@@ -533,11 +527,13 @@ import type {
 ## Browser Compatibility
 
 This package works in all modern browsers that support:
+
 - localStorage API
 - console API
 - ES2020 features
 
-No polyfills required for modern browsers (Chrome 80+, Firefox 75+, Safari 13.1+, Edge 80+).
+No polyfills required for modern browsers (Chrome 80+, Firefox 75+, Safari
+13.1+, Edge 80+).
 
 ## License
 
@@ -545,7 +541,8 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Please read our contributing guidelines before submitting PRs.
+Contributions are welcome! Please read our contributing guidelines before
+submitting PRs.
 
 ## Support
 

@@ -1,1 +1,1 @@
-export * from "./use-logger.hook";
+export * from './use-logger.hook';

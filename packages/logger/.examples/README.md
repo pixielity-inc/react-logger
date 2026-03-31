@@ -1,12 +1,14 @@
 # Logger Examples
 
-This folder contains examples demonstrating how to use `@abdokouta/logger` in various scenarios.
+This folder contains examples demonstrating how to use `@abdokouta/logger` in
+various scenarios.
 
 ## Examples Overview
 
 ### 1. Basic Usage (`01-basic-usage.ts`)
 
 Learn the fundamental logging operations:
+
 - ✅ Log levels (debug, info, warn, error, fatal)
 - ✅ Contextual logging
 - ✅ Multiple channels
@@ -14,6 +16,7 @@ Learn the fundamental logging operations:
 - ✅ Different transporters
 
 **Run:**
+
 ```bash
 ts-node examples/01-basic-usage.ts
 ```
@@ -21,6 +24,7 @@ ts-node examples/01-basic-usage.ts
 ### 2. Multiple Channels (`02-multiple-channels.ts`)
 
 Work with multiple logging channels:
+
 - ✅ Application logs
 - ✅ Audit logs
 - ✅ Error logs
@@ -28,6 +32,7 @@ Work with multiple logging channels:
 - ✅ Different configurations per channel
 
 **Run:**
+
 ```bash
 ts-node examples/02-multiple-channels.ts
 ```
@@ -35,6 +40,7 @@ ts-node examples/02-multiple-channels.ts
 ### 3. Structured Logging (`03-structured-logging.ts`)
 
 Master structured logging patterns:
+
 - ✅ Request logging
 - ✅ Performance tracking
 - ✅ Error tracking
@@ -42,6 +48,7 @@ Master structured logging patterns:
 - ✅ Correlation IDs
 
 **Run:**
+
 ```bash
 ts-node examples/03-structured-logging.ts
 ```
@@ -69,9 +76,7 @@ const app = await Inversiland.run({
       channels: {
         app: {
           level: 'info',
-          transporters: [
-            { type: 'console', format: 'pretty' },
-          ],
+          transporters: [{ type: 'console', format: 'pretty' }],
         },
       },
     }),
@@ -229,7 +234,7 @@ LoggerModule.forRoot({
       ],
     },
   },
-})
+});
 ```
 
 ### File Logger (Production)
@@ -249,7 +254,7 @@ LoggerModule.forRoot({
       ],
     },
   },
-})
+});
 ```
 
 ### Multiple Channels
@@ -260,15 +265,11 @@ LoggerModule.forRoot({
   channels: {
     app: {
       level: 'info',
-      transporters: [
-        { type: 'console', format: 'pretty' },
-      ],
+      transporters: [{ type: 'console', format: 'pretty' }],
     },
     audit: {
       level: 'info',
-      transporters: [
-        { type: 'file', format: 'json', path: 'logs/audit.log' },
-      ],
+      transporters: [{ type: 'file', format: 'json', path: 'logs/audit.log' }],
     },
     errors: {
       level: 'error',
@@ -278,7 +279,7 @@ LoggerModule.forRoot({
       ],
     },
   },
-})
+});
 ```
 
 ## Troubleshooting
@@ -312,4 +313,5 @@ LoggerModule.forRoot({
 
 ## Contributing
 
-Found an issue or have a suggestion? Please open an issue or submit a pull request!
+Found an issue or have a suggestion? Please open an issue or submit a pull
+request!

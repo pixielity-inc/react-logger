@@ -1,12 +1,12 @@
 /**
  * Basic Logger Usage Example
- * 
+ *
  * This example demonstrates the fundamental logging operations:
  * - Different log levels
  * - Contextual logging
  * - Multiple channels
  * - Persistent context
- * 
+ *
  * @example
  * Run this example:
  * ```bash
@@ -124,15 +124,11 @@ async function multipleChannels() {
         channels: {
           app: {
             level: 'info',
-            transporters: [
-              { type: 'console', format: 'pretty' },
-            ],
+            transporters: [{ type: 'console', format: 'pretty' }],
           },
           audit: {
             level: 'info',
-            transporters: [
-              { type: 'console', format: 'json' },
-            ],
+            transporters: [{ type: 'console', format: 'json' }],
           },
         },
       }),
@@ -179,7 +175,7 @@ async function performanceTracking(logger: LoggerService) {
   const start = Date.now();
 
   // Simulate some work
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   const duration = Date.now() - start;
 
@@ -248,25 +244,21 @@ function requestResponseLogging(logger: LoggerService) {
   const requestId = 'req-' + Math.random().toString(36).substr(2, 9);
 
   // Log incoming request
-  logger
-    .withContext({ requestId })
-    .info('Incoming request', {
-      method: 'GET',
-      path: '/api/users/123',
-      headers: {
-        'user-agent': 'Mozilla/5.0...',
-        'accept': 'application/json',
-      },
-    });
+  logger.withContext({ requestId }).info('Incoming request', {
+    method: 'GET',
+    path: '/api/users/123',
+    headers: {
+      'user-agent': 'Mozilla/5.0...',
+      accept: 'application/json',
+    },
+  });
 
   // Log response
-  logger
-    .withContext({ requestId })
-    .info('Outgoing response', {
-      statusCode: 200,
-      duration: 45,
-      size: 1024,
-    });
+  logger.withContext({ requestId }).info('Outgoing response', {
+    statusCode: 200,
+    duration: 45,
+    size: 1024,
+  });
 
   // Clear request context
   logger.withoutContext(['requestId']);
@@ -294,7 +286,7 @@ function businessEventLogging(logger: LoggerService) {
     currency: 'USD',
     items: [
       { id: 1, name: 'Product A', price: 49.99 },
-      { id: 2, name: 'Product B', price: 50.00 },
+      { id: 2, name: 'Product B', price: 50.0 },
     ],
   });
 

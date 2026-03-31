@@ -1,9 +1,9 @@
 /**
  * Logger Implementation
- * 
+ *
  * Core logger class that implements the LoggerInterface.
  * Handles log entry creation, context management, and transporter dispatch.
- * 
+ *
  * @module logger
  */
 
@@ -15,7 +15,7 @@ import { LogLevel } from './enums/log-level.enum';
 
 /**
  * Logger class
- * 
+ *
  * Implements the LoggerInterface with support for multiple transporters,
  * contextual logging, and log level filtering.
  */
