@@ -46,7 +46,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\""
   },
   "peerDependencies": {
-    "@abdokouta/react-di": "^2.1.0",
+    "@abdokouta/react-di": "^2.0.0",
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
@@ -59,7 +59,7 @@
     "@nesvel/prettier-config": "^1.0.3",
     "@nesvel/tsup-config": "^1.0.3",
     "@nesvel/typescript-config": "^1.0.4",
-    "@abdokouta/react-di": "^2.1.0",
+    "@abdokouta/react-di": "^2.0.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@vitest/ui": "^4.1.2",
