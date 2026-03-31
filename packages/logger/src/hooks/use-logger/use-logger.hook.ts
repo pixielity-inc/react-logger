@@ -7,7 +7,7 @@
  * @module hooks/use-logger
  */
 
-import { useInject } from '@abdokouta/container';
+import { useInject } from '@abdokouta/react-di';
 import { LoggerService } from '@/services/logger.service';
 import type { LoggerInterface } from '@/interfaces/logger.interface';
 

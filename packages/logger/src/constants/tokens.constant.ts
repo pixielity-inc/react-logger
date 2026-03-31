@@ -2,7 +2,7 @@
  * Dependency Injection Tokens
  * 
  * Defines DI tokens for the logger package.
- * Used with @abdokouta/container for dependency injection.
+ * Used with @abdokouta/react-di for dependency injection.
  * 
  * @module constants/tokens
  */

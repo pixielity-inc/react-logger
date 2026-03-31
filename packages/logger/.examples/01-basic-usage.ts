@@ -15,7 +15,7 @@
  */
 
 import { LoggerModule, LoggerService } from '@abdokouta/logger';
-import { Inversiland } from '@abdokouta/container';
+import { Inversiland } from '@abdokouta/react-di';
 
 /**
  * Initialize the logger module

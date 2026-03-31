@@ -7,7 +7,7 @@
  * @module logger.module
  */
 
-import { Module, forRoot, type DynamicModule } from '@abdokouta/container';
+import { Module, forRoot, type DynamicModule } from '@abdokouta/react-di';
 
 import { LoggerService } from './services/logger.service';
 import { LOGGER_CONFIG } from './constants/tokens.constant';
@@ -24,7 +24,7 @@ import type { LoggerConfig } from './interfaces/logger-config.interface';
  * 
  * @example
  * ```typescript
- * import { Module } from '@abdokouta/container';
+ * import { Module } from '@abdokouta/react-di';
  * import { LoggerModule, defineConfig } from '@abdokouta/logger';
  * import { ConsoleTransporter, StorageTransporter } from '@abdokouta/logger';
  * import { LogLevel } from '@abdokouta/logger';
@@ -59,7 +59,7 @@ import type { LoggerConfig } from './interfaces/logger-config.interface';
  * @example
  * ```typescript
  * // Using logger in a service
- * import { Injectable, Inject } from '@abdokouta/container';
+ * import { Injectable, Inject } from '@abdokouta/react-di';
  * import { LoggerService } from '@abdokouta/logger';
  * 
  * @Injectable()

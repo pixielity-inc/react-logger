@@ -13,7 +13,7 @@
  * @module services/logger
  */
 
-import { Injectable, Inject } from '@abdokouta/container';
+import { Injectable, Inject } from '@abdokouta/react-di';
 import { Logger } from '../logger';
 import type { LoggerInterface } from '../interfaces/logger.interface';
 import type { LoggerServiceInterface } from '../interfaces/logger-service.interface';
