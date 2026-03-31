@@ -1,26 +1,33 @@
 {
   "name": "@abdokouta/react-logger",
   "version": "1.0.0",
-  "private": false,
   "description": "Flexible logging system with multiple formatters and transporters for React",
+  "license": "MIT",
+  "author": {
+    "name": "Abdelrhman Kouta",
+    "email": "abdelrhman@pixielity.com",
+    "url": "https://github.com/abdokouta"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abdokouta/logger.git",
+    "directory": "packages/logger"
+  },
+  "bugs": {
+    "url": "https://github.com/abdokouta/logger/issues"
+  },
+  "homepage": "https://github.com/abdokouta/logger#readme",
   "keywords": [
     "react",
     "logger",
     "logging",
     "console",
     "transport",
-    "formatter"
+    "formatter",
+    "dependency-injection",
+    "di"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pixielity-inc/react-logger.git"
-  },
-  "license": "MIT",
-  "author": "Pixielity",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -28,42 +35,53 @@
       "require": "./dist/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "config"
+    "config",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "clean": "rm -rf dist node_modules/.cache",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
-    "check-types": "tsc --noEmit",
-    "clean": "rm -rf dist",
-    "test": "vitest --run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest --run --coverage",
-    "test:ui": "vitest --ui",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\""
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "pnpm run build",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "@abdokouta/react-di": "^2.0.0",
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
+    "@abdokouta/react-di": {
+      "optional": false
+    },
     "react": {
       "optional": true
     }
   },
   "devDependencies": {
+    "@abdokouta/react-di": "^2.0.0",
     "@nesvel/eslint-config": "^1.0.5",
     "@nesvel/prettier-config": "^1.0.3",
     "@nesvel/tsup-config": "^1.0.3",
     "@nesvel/typescript-config": "^1.0.4",
-    "@abdokouta/react-di": "^2.0.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@vitest/ui": "^4.1.2",
     "eslint": "^10.1.0",
+    "jsdom": "^29.0.1",
     "prettier": "^3.8.1",
     "react": "^19.2.4",
     "tsup": "^8.5.1",
@@ -71,6 +89,12 @@
     "vitest": "^4.1.2"
   },
   "publishConfig": {
-    "access": "public"
-  }
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "sideEffects": false
 }
