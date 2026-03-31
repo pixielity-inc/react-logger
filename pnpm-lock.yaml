@@ -18,8 +18,11 @@ importers:
   examples/vite:
     dependencies:
       '@abdokouta/react-di':
-        specifier: ^2.1.0
+        specifier: ^2.0.0
         version: 2.1.0(react@19.2.4)
+      '@abdokouta/react-logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
       '@heroui/react':
         specifier: 3.0.1
         version: 3.0.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.2.2)
@@ -127,7 +130,7 @@ importers:
   packages/logger:
     devDependencies:
       '@abdokouta/react-di':
-        specifier: ^2.1.0
+        specifier: ^2.0.0
         version: 2.1.0(react@19.2.4)
       '@nesvel/eslint-config':
         specifier: ^1.0.5
