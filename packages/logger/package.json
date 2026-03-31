@@ -1,0 +1,76 @@
+{
+  "name": "@abdokouta/react-logger",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Flexible logging system with multiple formatters and transporters for React",
+  "keywords": [
+    "react",
+    "logger",
+    "logging",
+    "console",
+    "transport",
+    "formatter"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixielity-inc/react-logger.git"
+  },
+  "license": "MIT",
+  "author": "Pixielity",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "config"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --run --coverage",
+    "test:ui": "vitest --ui",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\""
+  },
+  "peerDependencies": {
+    "@abdokouta/react-di": "^2.1.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@nesvel/eslint-config": "^1.0.5",
+    "@nesvel/prettier-config": "^1.0.3",
+    "@nesvel/tsup-config": "^1.0.3",
+    "@nesvel/typescript-config": "^1.0.4",
+    "@abdokouta/react-di": "^2.1.0",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@vitest/ui": "^4.1.2",
+    "eslint": "^10.1.0",
+    "prettier": "^3.8.1",
+    "react": "^19.2.4",
+    "tsup": "^8.5.1",
+    "typescript": "6.0.2",
+    "vitest": "^4.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
