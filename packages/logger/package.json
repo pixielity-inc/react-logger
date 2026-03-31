@@ -1,6 +1,6 @@
 {
   "name": "@abdokouta/react-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Flexible logging system with multiple formatters and transporters for React",
   "license": "MIT",
   "author": {
