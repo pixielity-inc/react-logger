@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@abdokouta/react-di": "^2.0.0",
+    "@eslint/js": "10.0.1",
     "@nesvel/eslint-config": "^1.0.5",
     "@nesvel/prettier-config": "^1.0.3",
     "@nesvel/tsup-config": "^1.0.3",
@@ -81,11 +82,13 @@
     "@types/react": "^19.2.14",
     "@vitest/ui": "^4.1.2",
     "eslint": "^10.1.0",
+    "eslint-plugin-turbo": "^2.9.1",
     "jsdom": "^29.0.1",
     "prettier": "^3.8.1",
     "react": "^19.2.4",
     "tsup": "^8.5.1",
     "typescript": "6.0.2",
+    "typescript-eslint": "^8.58.0",
     "vitest": "^4.1.2"
   },
   "publishConfig": {
