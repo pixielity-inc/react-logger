@@ -76,7 +76,11 @@ export { LoggerService as Logger } from './services/logger.service';
 // ============================================================================
 export { LoggerModule } from './logger.module';
 export type { LoggerModuleOptions } from './config/logger.config';
-export { defineConfig } from './config/logger.config';
+
+// ============================================================================
+// Utils
+// ============================================================================
+export { defineConfig } from './utils';
 
 // ============================================================================
 // Formatters

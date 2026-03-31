@@ -15,12 +15,12 @@
  */
 
 import {
+  defineConfig,
   LogLevel,
   SilentTransporter,
   ConsoleTransporter,
   StorageTransporter,
-} from "@abdokouta/logger";
-import type { LoggerModuleOptions } from "@abdokouta/logger";
+} from '@abdokouta/logger';
 
 /**
  * Logger configuration
@@ -35,7 +35,7 @@ import type { LoggerModuleOptions } from "@abdokouta/logger";
  * - NODE_ENV: Environment (development/production/test)
  * - LOG_STORAGE_MAX_ENTRIES: Max storage entries (default: 500)
  */
-const loggerConfig: LoggerModuleOptions = {
+const loggerConfig = defineConfig({
   /*
   |--------------------------------------------------------------------------
   | Default Log Channel
@@ -46,7 +46,7 @@ const loggerConfig: LoggerModuleOptions = {
   | one of the channels defined in the "channels" configuration array.
   |
   */
-  default: process.env.LOG_CHANNEL || "console",
+  default: process.env.LOG_CHANNEL || 'console',
 
   /*
   |--------------------------------------------------------------------------
@@ -66,13 +66,12 @@ const loggerConfig: LoggerModuleOptions = {
     console: {
       transporters: [
         new ConsoleTransporter({
-          level:
-            (process.env.LOG_LEVEL as unknown as LogLevel) || LogLevel.Debug,
+          level: (process.env.LOG_LEVEL as unknown as LogLevel) || LogLevel.Debug,
         }),
       ],
       context: {
-        app: process.env.APP_NAME || "refine-app",
-        env: process.env.NODE_ENV || "development",
+        app: process.env.APP_NAME || 'refine-app',
+        env: process.env.NODE_ENV || 'development',
       },
     },
 
@@ -85,12 +84,12 @@ const loggerConfig: LoggerModuleOptions = {
     storage: {
       transporters: [
         new StorageTransporter({
-          key: "app-logs",
+          key: 'app-logs',
           maxEntries: Number(process.env.LOG_STORAGE_MAX_ENTRIES) || 500,
         }),
       ],
       context: {
-        app: process.env.APP_NAME || "refine-app",
+        app: process.env.APP_NAME || 'refine-app',
       },
     },
 
@@ -106,13 +105,13 @@ const loggerConfig: LoggerModuleOptions = {
           level: LogLevel.Info,
         }),
         new StorageTransporter({
-          key: "app-logs",
+          key: 'app-logs',
           maxEntries: 1000,
         }),
       ],
       context: {
-        app: process.env.APP_NAME || "refine-app",
-        env: process.env.NODE_ENV || "production",
+        app: process.env.APP_NAME || 'refine-app',
+        env: process.env.NODE_ENV || 'production',
       },
     },
 
@@ -128,13 +127,13 @@ const loggerConfig: LoggerModuleOptions = {
           level: LogLevel.Error,
         }),
         new StorageTransporter({
-          key: "error-logs",
+          key: 'error-logs',
           maxEntries: 200,
         }),
       ],
       context: {
-        app: process.env.APP_NAME || "refine-app",
-        channel: "errors",
+        app: process.env.APP_NAME || 'refine-app',
+        channel: 'errors',
       },
     },
 
@@ -147,13 +146,13 @@ const loggerConfig: LoggerModuleOptions = {
     audit: {
       transporters: [
         new StorageTransporter({
-          key: "audit-logs",
+          key: 'audit-logs',
           maxEntries: 1000,
         }),
       ],
       context: {
-        app: process.env.APP_NAME || "refine-app",
-        channel: "audit",
+        app: process.env.APP_NAME || 'refine-app',
+        channel: 'audit',
       },
     },
 
@@ -166,6 +165,6 @@ const loggerConfig: LoggerModuleOptions = {
       transporters: [new SilentTransporter()],
     },
   },
-};
+});
 
 export default loggerConfig;
