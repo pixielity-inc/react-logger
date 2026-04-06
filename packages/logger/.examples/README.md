@@ -1,6 +1,6 @@
 # Logger Examples
 
-This folder contains examples demonstrating how to use `@abdokouta/logger` in
+This folder contains examples demonstrating how to use `@abdokouta/react-logger` in
 various scenarios.
 
 ## Examples Overview
@@ -58,13 +58,13 @@ ts-node examples/03-structured-logging.ts
 ### Installation
 
 ```bash
-npm install @abdokouta/logger @abdokouta/container
+npm install @abdokouta/react-logger @abdokouta/container
 ```
 
 ### Basic Setup
 
 ```typescript
-import { LoggerModule, LoggerService } from '@abdokouta/logger';
+import { LoggerModule, LoggerService } from '@abdokouta/react-logger';
 import { Inversiland } from '@abdokouta/container';
 
 // Initialize logger

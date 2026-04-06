@@ -2,4 +2,4 @@
  * Constants
  */
 
-export { LOGGER_TOKENS } from './tokens.constant';
+export { LOGGER_CONFIG, LOGGER_MANAGER } from './tokens.constant';

@@ -14,8 +14,8 @@
  * ```
  */
 
-import { LoggerModule, LoggerService } from '@abdokouta/logger';
-import { Inversiland } from '@abdokouta/react-di';
+import { LoggerModule, LoggerService } from '@abdokouta/react-logger';
+import { Inversiland } from '@abdokouta/ts-container';
 
 /**
  * Initialize the logger module

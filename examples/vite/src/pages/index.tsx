@@ -16,7 +16,7 @@ export default function IndexPage() {
           <br />
           <span className={title()}>with NestJS-style modules</span>
           <div className={subtitle({ class: "mt-4" })}>
-            Built with @abdokouta/react-di and HeroUI
+            Built with @abdokouta/ts-container and HeroUI
           </div>
         </div>
 
@@ -42,7 +42,7 @@ export default function IndexPage() {
             <pre className="text-sm font-medium font-mono">
               npm install{" "}
               <code className="px-2 py-1 h-fit font-mono font-normal inline whitespace-nowrap rounded-sm bg-accent/20 text-accent text-sm">
-                @abdokouta/react-di reflect-metadata
+                @abdokouta/ts-container reflect-metadata
               </code>
             </pre>
           </div>

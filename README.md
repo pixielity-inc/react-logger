@@ -1,213 +1,245 @@
 <p align="center">
-  <img src="./assets/banner.svg" alt="@abdokouta/react-di" width="100%" />
+  <img src=".github/assets/banner.svg" alt="@abdokouta/react-logger" width="100%" />
 </p>
 
-<h1 align="center">@abdokouta/react-di</h1>
+<h1 align="center">@abdokouta/react-logger</h1>
 
 <p align="center">
-  <strong>Powerful dependency injection for React with NestJS-style modules</strong>
-</p>
-
-<p align="center">
-  <a href="https://www.npmjs.com/package/@abdokouta/react-di"><img src="https://img.shields.io/npm/v/@abdokouta/react-di.svg?style=flat-square" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/@abdokouta/react-di"><img src="https://img.shields.io/npm/dm/@abdokouta/react-di.svg?style=flat-square" alt="npm downloads" /></a>
-  <a href="https://github.com/abdokouta/react-di/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@abdokouta/react-di.svg?style=flat-square" alt="license" /></a>
-  <a href="https://github.com/abdokouta/react-di"><img src="https://img.shields.io/github/stars/abdokouta/react-di?style=flat-square" alt="GitHub stars" /></a>
+  <strong>Multi-channel logging system for React with DI integration</strong>
 </p>
 
 <p align="center">
-  Built on top of <a href="https://github.com/inversiland/inversiland">Inversiland</a> • TypeScript-first • Zero boilerplate
+  <a href="https://www.npmjs.com/package/@abdokouta/react-logger"><img src="https://img.shields.io/npm/v/@abdokouta/react-logger.svg?style=flat-square" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@abdokouta/react-logger"><img src="https://img.shields.io/npm/dm/@abdokouta/react-logger.svg?style=flat-square" alt="npm downloads" /></a>
+  <a href="https://github.com/pixielity-inc/react-logger/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@abdokouta/react-logger.svg?style=flat-square" alt="license" /></a>
+</p>
+
+<p align="center">
+  Console · Storage · Silent transporters · MultipleInstanceManager · DI Integration · React Hooks
 </p>
 
 ---
 
-## ✨ Features
+## What is this?
 
-- 🎯 **NestJS-style modules** - Familiar patterns for organizing your React app
-- 💉 **Powerful DI** - Constructor injection with decorators
-- 🔄 **Dynamic modules** - `forRoot` and `forFeature` patterns
-- ⚛️ **React hooks** - `useInject` for seamless component integration
-- 🌍 **Global modules** - Share services across your entire app
-- 🔥 **HMR support** - Works perfectly with Vite hot module replacement
-- 📦 **Tree-shakeable** - Only bundle what you use
-- 🎨 **TypeScript-first** - Full type safety and IntelliSense
+A multi-channel logging system for React apps. Manage multiple named logging channels (console, storage, silent) with a unified API. Built on `MultipleInstanceManager` from `@abdokouta/react-support` and integrates with `@abdokouta/ts-container` for NestJS-style dependency injection.
 
-## 📦 Installation
+Inspired by Laravel's logging system — same patterns, same DX, built for the browser.
+
+## Features
+
+- Multiple named channels — switch at runtime
+- `LoggerManager` extends `MultipleInstanceManager` for lazy channel creation
+- `LoggerService` wraps channels with `debug()`, `info()`, `warn()`, `error()`, `fatal()`
+- Contextual logging with `withContext()` / `withoutContext()`
+- Console output with expandable context objects in DevTools
+- Three built-in transporters: Console, Storage (localStorage), Silent
+- Three formatters: Pretty (colors + emoji), JSON, Simple
+- `LoggerModule.forRoot(config)` — DynamicModule pattern
+- React hooks: `useLogger()`, `useLoggerContext()`
+- Global by default — available to all modules
+- `OnModuleInit` / `OnModuleDestroy` lifecycle hooks
+- TypeScript-first with full type safety
+
+## Architecture
+
+```
+LoggerModule.forRoot(config) → DynamicModule
+├── { provide: LOGGER_CONFIG, useValue: config }
+├── { provide: LoggerManager, useClass: LoggerManager }
+└── { provide: LOGGER_MANAGER, useExisting: LoggerManager }
+
+LoggerManager extends MultipleInstanceManager<LoggerConfig>
+├── getDefaultInstance() → config.default
+├── getInstanceConfig(name) → config.channels[name]
+├── createDriver(driver, config) → LoggerConfig with transporters
+├── channel(name?) → LoggerService (wraps channel config)
+├── onModuleInit() → warm default channel
+└── onModuleDestroy() → cleanup all
+
+LoggerService wraps a channel's transporters
+├── debug(message, context?)
+├── info(message, context?)
+├── warn(message, context?)
+├── error(message, context?)
+├── fatal(message, context?)
+├── withContext(context) → add persistent context
+└── withoutContext(keys?) → remove context
+```
+
+## Quick Start
+
+### 1. Install
 
 ```bash
-npm install @abdokouta/react-di reflect-metadata
+pnpm add @abdokouta/react-logger @abdokouta/react-support @abdokouta/ts-container
 ```
 
-## 🚀 Quick Start
-
-### 1. Initialize the Container
+### 2. Configure
 
 ```typescript
-// main.tsx
-import "reflect-metadata";
-import { Container, ContainerProvider } from "@abdokouta/react-di";
-import { AppModule } from "./modules/app.module";
+// src/config/logger.config.ts
+import { defineConfig, LogLevel, ConsoleTransporter, StorageTransporter, SilentTransporter } from '@abdokouta/react-logger';
 
-Container
-  .configure()
-  .withModule(AppModule)
-  .withLogLevel(import.meta.env.DEV ? "debug" : "info")
-  .withDefaultScope("Singleton")
-  .build();
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <ContainerProvider module={AppModule}>
-    <App />
-  </ContainerProvider>
-);
+export default defineConfig({
+  default: 'console',
+  channels: {
+    console: {
+      transporters: [new ConsoleTransporter({ level: LogLevel.Debug })],
+      context: { app: 'my-app', env: 'development' },
+    },
+    storage: {
+      transporters: [new StorageTransporter({ key: 'app-logs', maxEntries: 500 })],
+    },
+    errors: {
+      transporters: [
+        new ConsoleTransporter({ level: LogLevel.Error }),
+        new StorageTransporter({ key: 'error-logs', maxEntries: 200 }),
+      ],
+    },
+    silent: {
+      transporters: [new SilentTransporter()],
+    },
+  },
+});
 ```
 
-### 2. Create Services
+### 3. Register Module
 
 ```typescript
-import { Injectable, Inject } from "@abdokouta/react-di";
-
-@Injectable()
-export class LoggerService {
-  log(message: string) {
-    console.log(`[LOG]: ${message}`);
-  }
-}
-
-@Injectable()
-export class UserService {
-  constructor(@Inject(LoggerService) private logger: LoggerService) {}
-
-  getUsers() {
-    this.logger.log("Fetching users...");
-    return [{ id: 1, name: "John" }];
-  }
-}
-```
-
-### 3. Create Modules
-
-```typescript
-import { Module } from "@abdokouta/react-di";
+import { Module } from '@abdokouta/ts-container';
+import { LoggerModule } from '@abdokouta/react-logger';
+import loggerConfig from './config/logger.config';
 
 @Module({
-  providers: [LoggerService, UserService],
+  imports: [LoggerModule.forRoot(loggerConfig)],
 })
 export class AppModule {}
 ```
 
-### 4. Use in Components
+### 4. Use in Services
 
 ```typescript
-import { useInject } from "@abdokouta/react-di";
+import { Injectable, Inject } from '@abdokouta/ts-container';
+import { LoggerManager, LOGGER_MANAGER } from '@abdokouta/react-logger';
 
-export function UserList() {
-  const userService = useInject(UserService);
-  const users = userService.getUsers();
+@Injectable()
+export class UserService {
+  constructor(@Inject(LOGGER_MANAGER) private logger: LoggerManager) {}
 
-  return (
-    <ul>
-      {users.map(user => <li key={user.id}>{user.name}</li>)}
-    </ul>
-  );
-}
-```
+  createUser(name: string) {
+    const log = this.logger.channel();
+    log.info('Creating user', { name });
 
-## 🏗️ Container Builder API
-
-```typescript
-// Full configuration
-Container
-  .configure()
-  .withModule(AppModule)
-  .withLogLevel("debug")
-  .withDefaultScope("Singleton")
-  .build();
-
-// With config object
-Container
-  .configure()
-  .withModule(AppModule)
-  .withConfig({ logLevel: "debug", defaultScope: "Singleton" })
-  .build();
-
-// With defaults
-Container
-  .configure()
-  .withModule(AppModule)
-  .withDefaults()
-  .build();
-```
-
-## 🌍 Global Modules
-
-```typescript
-import { Module, Global } from "@abdokouta/react-di";
-
-@Global()
-@Module({
-  providers: [LoggerService],
-})
-export class LoggerModule {}
-```
-
-## 🔄 Dynamic Modules
-
-```typescript
-import { Module, forRoot, type DynamicModule } from "@abdokouta/react-di";
-
-@Module({})
-export class ConfigModule {
-  static forRoot(config: AppConfig): DynamicModule {
-    return forRoot(ConfigModule, {
-      providers: [{ provide: CONFIG, useValue: config }],
-      exports: [ConfigService],
-    });
+    const audit = this.logger.channel('errors');
+    audit.error('User creation failed', { name, reason: 'duplicate' });
   }
 }
 ```
 
-## 📋 Provider Types
+### 5. Use in React
 
-| Type | Example |
-|------|---------|
-| Class | `UserService` or `{ provide: USER, useClass: UserService }` |
-| Value | `{ provide: API_URL, useValue: "https://api.example.com" }` |
-| Factory | `{ provide: CONNECTION, useFactory: (ctx) => () => createConnection() }` |
-| Async Factory | `{ provide: DB, useAsyncFactory: () => async () => await connect() }` |
-| Alias | `{ provide: "Logger", useExisting: LoggerService }` |
+```tsx
+import { useLogger, useLoggerContext } from '@abdokouta/react-logger';
 
-## 🎣 React Hooks
+function Dashboard() {
+  const logger = useLogger();
+  logger.info('Dashboard loaded');
+  return <div>Dashboard</div>;
+}
+
+function UserProfile({ userId }: { userId: string }) {
+  useLoggerContext({ userId, component: 'UserProfile' });
+  const logger = useLogger();
+  // Every log includes { userId, component: 'UserProfile' }
+  logger.info('Profile loaded');
+  return <div>Profile</div>;
+}
+
+function ErrorPanel() {
+  const errorLogger = useLogger('errors');
+  errorLogger.error('Something went wrong', { source: 'manual' });
+  return <div>Error</div>;
+}
+```
+
+## API Reference
+
+### LoggerManager
+
+The central orchestrator. Extends `MultipleInstanceManager<LoggerConfig>`.
+
+| Method | Description |
+|---|---|
+| `channel(name?)` | Get a LoggerService for a channel (default if omitted) |
+| `getDefaultChannelName()` | Get the default channel name |
+| `getChannelNames()` | Get all configured channel names |
+| `hasChannel(name)` | Check if a channel is configured |
+| `isChannelActive(name?)` | Check if a channel is currently cached |
+| `forgetChannel(name?)` | Remove cached channel, force re-creation |
+| `extend(driver, creator)` | Register a custom driver creator |
+| `purge()` | Clear all cached channels |
+
+### LoggerService
+
+Consumer-facing API. Created by `LoggerManager.channel()`.
+
+| Method | Description |
+|---|---|
+| `debug(message, context?)` | Log at debug level |
+| `info(message, context?)` | Log at info level |
+| `warn(message, context?)` | Log at warn level |
+| `error(message, context?)` | Log at error level |
+| `fatal(message, context?)` | Log at fatal level |
+| `withContext(context)` | Add persistent context |
+| `withoutContext(keys?)` | Remove context keys (or clear all) |
+| `getTransporters()` | Get channel's transporters |
+
+### React Hooks
 
 | Hook | Description |
-|------|-------------|
-| `useInject<T>(token)` | Inject a service |
-| `useContainer()` | Get container context |
-| `useModule(module)` | Get module container |
+|---|---|
+| `useLogger(channelName?)` | Get a LoggerService for a channel |
+| `useLoggerContext(context, channelName?)` | Auto-attach/detach context on mount/unmount |
 
-## 🔧 Decorators
+### DI Tokens
 
-| Decorator | Description |
-|-----------|-------------|
-| `@Module()` | Define a module |
-| `@Global()` | Make module global |
-| `@Injectable()` | Mark class as injectable |
-| `@Inject(token)` | Inject dependency |
-| `@MultiInject(token)` | Inject all with token |
-| `@Optional()` | Optional dependency |
+| Token | Description |
+|---|---|
+| `LOGGER_CONFIG` | Injected config object |
+| `LOGGER_MANAGER` | useExisting alias to LoggerManager |
 
-## 📚 Documentation
+## Transporters
 
-- [Full Documentation](./packages/container/README.md)
-- [Examples](./examples/vite)
-- [API Reference](./packages/container/README.md#-decorators)
+| Transporter | Description |
+|---|---|
+| `ConsoleTransporter` | Browser console with colors, emoji, expandable context |
+| `StorageTransporter` | localStorage persistence with max entry limit |
+| `SilentTransporter` | No-op (testing/production) |
 
-## 📄 License
+## Formatters
 
-MIT © [Abdo Kouta](https://github.com/abdokouta)
+| Formatter | Description |
+|---|---|
+| `PrettyFormatter` | Colors + emoji for console (default) |
+| `JsonFormatter` | JSON serialization for storage (default) |
+| `SimpleFormatter` | Plain text |
 
----
+## Packages
 
-<p align="center">
-  Made with ❤️ by <a href="https://github.com/abdokouta">Abdo Kouta</a>
-</p>
+| Package | Version | Description |
+|---|---|---|
+| `@abdokouta/react-logger` | `1.0.1` | Core logger package |
+
+## Related Packages
+
+| Package | Description |
+|---|---|
+| [`@abdokouta/ts-container`](https://github.com/pixielity-inc/ts-container) | DI container |
+| [`@abdokouta/react-support`](https://github.com/pixielity-inc/react-support) | MultipleInstanceManager base |
+| [`@abdokouta/react-redis`](https://github.com/pixielity-inc/react-redis) | Redis connection management |
+| [`@abdokouta/react-cache`](https://github.com/pixielity-inc/react-cache) | Multi-driver cache system |
+
+## License
+
+MIT © [Abdelrhman Kouta](https://github.com/abdokouta)

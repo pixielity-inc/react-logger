@@ -1,4 +1,4 @@
-# @abdokouta/react-di
+# @abdokouta/ts-container
 
 ## 2.0.0 (2026-03-31)
 
@@ -15,10 +15,9 @@
 New fluent builder pattern for initializing the DI container:
 
 ```typescript
-import { Container } from "@abdokouta/react-di";
+import { Container } from "@abdokouta/ts-container";
 
-Container
-  .configure()
+Container.configure()
   .withModule(AppModule)
   .withLogLevel("debug")
   .withDefaultScope("Singleton")
@@ -26,6 +25,7 @@ Container
 ```
 
 Available methods:
+
 - `.configure()` - Start configuration
 - `.withModule(module)` - Set root module (required)
 - `.withLogLevel(level)` - Set log level ("none" | "info" | "debug")
@@ -40,7 +40,7 @@ Available methods:
 Alternative functional approach for container initialization:
 
 ```typescript
-import { initContainer } from "@abdokouta/react-di";
+import { initContainer } from "@abdokouta/ts-container";
 
 initContainer({
   module: AppModule,
@@ -73,7 +73,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 ```typescript
 // main.tsx
-import { Container, ContainerProvider } from "@abdokouta/react-di";
+import { Container, ContainerProvider } from "@abdokouta/ts-container";
 
 // Initialize BEFORE React renders
 Container

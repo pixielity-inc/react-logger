@@ -73,9 +73,8 @@ export class PrettyFormatter implements FormatterInterface {
     const emoji = LEVEL_EMOJI[entry.level];
     const label = LEVEL_LABEL[entry.level];
     const time = this.formatTimestamp(entry.timestamp);
-    const contextStr = this.formatContext(entry.context);
 
-    return `${emoji} %c[${label}]%c [${time}] ${entry.message}${contextStr}`;
+    return `${emoji} %c[${label}]%c [${time}] ${entry.message}`;
   }
 
   /**
@@ -98,24 +97,4 @@ export class PrettyFormatter implements FormatterInterface {
     }
   }
 
-  /**
-   * Serialize context data into a compact, readable string.
-   * Returns an empty string when context is empty to keep output clean.
-   *
-   * @param context - The context record to serialize.
-   * @returns A formatted context string or empty string.
-   */
-  private formatContext(context: Record<string, unknown>): string {
-    const keys = Object.keys(context);
-
-    if (keys.length === 0) {
-      return '';
-    }
-
-    try {
-      return ` ${JSON.stringify(context)}`;
-    } catch {
-      return ` [context serialization failed]`;
-    }
-  }
 }

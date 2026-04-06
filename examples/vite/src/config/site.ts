@@ -1,17 +1,17 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "@abdokouta/react-di",
+  name: "@abdokouta/react-logger",
   description:
-    "Dependency injection container for React with NestJS-style modules",
+    "Flexible logging system with multiple channels and transporters for React",
   navItems: [
     {
       label: "Home",
       href: "/",
     },
     {
-      label: "Basic Demo",
-      href: "/container",
+      label: "Logger Demo",
+      href: "/logger",
     },
     {
       label: "Advanced Patterns",
@@ -24,8 +24,8 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Basic Demo",
-      href: "/container",
+      label: "Logger Demo",
+      href: "/logger",
     },
     {
       label: "Advanced Patterns",
@@ -33,7 +33,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/abdokouta/react-di",
-    docs: "https://github.com/abdokouta/react-di#readme",
+    github: "https://github.com/pixielity-inc/react-logger",
+    docs: "https://github.com/pixielity-inc/react-logger#readme",
   },
 };

@@ -1,4 +1,4 @@
-# @abdokouta/logger Implementation Summary
+# @abdokouta/react-logger Implementation Summary
 
 ## ✅ Status: Complete and Production-Ready
 
@@ -135,7 +135,7 @@ export class UserService {
 ### Using defineConfig
 
 ```typescript
-import { defineConfig } from '@abdokouta/logger';
+import { defineConfig } from '@abdokouta/react-logger';
 
 export const loggerConfig = defineConfig({
   default: 'console',
@@ -151,7 +151,7 @@ export const loggerConfig = defineConfig({
 ### Using Presets
 
 ```typescript
-import { consolePreset, silentPreset } from '@abdokouta/logger';
+import { consolePreset, silentPreset } from '@abdokouta/react-logger';
 
 // Development
 export const devConfig = defineConfig(consolePreset);
@@ -261,7 +261,7 @@ import type {
   LogLevel,
   TransporterInterface,
   FormatterInterface,
-} from '@abdokouta/logger';
+} from '@abdokouta/react-logger';
 ```
 
 ## Browser Compatibility
@@ -275,7 +275,7 @@ Works in all modern browsers:
 
 ## Summary
 
-The @abdokouta/logger package is a complete, production-ready logging system
+The @abdokouta/react-logger package is a complete, production-ready logging system
 that:
 
 - ✅ Follows the same patterns as @abdokouta/cache (NO manager, service handles

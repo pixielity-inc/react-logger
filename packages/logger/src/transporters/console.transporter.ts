@@ -85,10 +85,21 @@ The minimum log level threshold for this transporter. */
     if (this._formatter instanceof PrettyFormatter) {
       const levelStyle = LEVEL_COLORS[entry.level];
       const resetStyle = 'color: inherit';
+      const hasContext = entry.context && Object.keys(entry.context).length > 0;
 
-      method(formatted, levelStyle, resetStyle);
+      if (hasContext) {
+        method(formatted, levelStyle, resetStyle, entry.context);
+      } else {
+        method(formatted, levelStyle, resetStyle);
+      }
     } else {
-      method(formatted);
+      const hasContext = entry.context && Object.keys(entry.context).length > 0;
+
+      if (hasContext) {
+        method(formatted, entry.context);
+      } else {
+        method(formatted);
+      }
     }
   }
 

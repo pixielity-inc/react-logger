@@ -1,53 +1,12 @@
 /**
- * @abdokouta/logger
+ * @abdokouta/react-logger
  *
  * A lightweight, client-side logging package inspired by Laravel's
  * logging architecture. Provides a clean interface for structured
  * logging with pluggable transporters, customizable formatters,
  * contextual logging, colors, and emoji support.
  *
- * @example
- * ```typescript
- * import { LoggerModule, defineConfig, LogLevel } from '@abdokouta/logger';
- * import { ConsoleTransporter, StorageTransporter } from '@abdokouta/logger';
- *
- * // Configure in your module
- * @Module({
- *   imports: [
- *     LoggerModule.forRoot(
- *       defineConfig({
- *         default: 'console',
- *         channels: {
- *           console: { transporters: [new ConsoleTransporter()] },
- *           storage: { transporters: [new StorageTransporter()] },
- *         },
- *       })
- *     ),
- *   ],
- * })
- * export class AppModule {}
- *
- * // Use in services
- * @Injectable()
- * class UserService {
- *   constructor(
- *     @Inject(LoggerService) private logger: LoggerService
- *   ) {}
- *
- *   async createUser(data: UserData) {
- *     this.logger.info('Creating user', { email: data.email });
- *   }
- * }
- *
- * // Use in React components
- * function MyComponent() {
- *   const logger = useLogger();
- *   logger.info('Component rendered');
- *   return <div>Hello</div>;
- * }
- * ```
- *
- * @module @abdokouta/logger
+ * @module @abdokouta/react-logger
  */
 
 // ============================================================================
@@ -64,18 +23,23 @@ export type { TransporterInterface } from './interfaces';
 export type { LoggerInterface } from './interfaces';
 export type { LoggerConfig } from './interfaces';
 export type { LoggerServiceInterface } from './interfaces/logger-service.interface';
+export type { LoggerModuleOptions } from './interfaces/logger-module-options.interface';
 
 // ============================================================================
-// Service (DI)
+// Services (DI)
 // ============================================================================
+export { LoggerManager } from './services/logger-manager.service';
 export { LoggerService } from './services/logger.service';
-export { LoggerService as Logger } from './services/logger.service';
 
 // ============================================================================
 // Module (DI Configuration)
 // ============================================================================
 export { LoggerModule } from './logger.module';
-export type { LoggerModuleOptions } from './config/logger.config';
+
+// ============================================================================
+// Constants / Tokens
+// ============================================================================
+export { LOGGER_CONFIG, LOGGER_MANAGER } from './constants/tokens.constant';
 
 // ============================================================================
 // Utils
