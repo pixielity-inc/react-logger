@@ -13,3 +13,5 @@ export type { LoggerInterface } from './logger.interface';
 export type { LoggerConfig } from './logger-config.interface';
 export type { LoggerModuleOptions } from './logger-module-options.interface';
 export type { LoggerServiceInterface } from './logger-service.interface';
+export type { ConsoleTransporterOptions } from './console-transporter-options.interface';
+export type { StorageTransporterOptions } from './storage-transporter-options.interface';

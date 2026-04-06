@@ -22,8 +22,10 @@ export type { FormatterInterface } from './interfaces';
 export type { TransporterInterface } from './interfaces';
 export type { LoggerInterface } from './interfaces';
 export type { LoggerConfig } from './interfaces';
-export type { LoggerServiceInterface } from './interfaces/logger-service.interface';
-export type { LoggerModuleOptions } from './interfaces/logger-module-options.interface';
+export type { LoggerModuleOptions } from './interfaces';
+export type { LoggerServiceInterface } from './interfaces';
+export type { ConsoleTransporterOptions } from './interfaces';
+export type { StorageTransporterOptions } from './interfaces';
 
 // ============================================================================
 // Services (DI)
@@ -40,6 +42,7 @@ export { LoggerModule } from './logger.module';
 // Constants / Tokens
 // ============================================================================
 export { LOGGER_CONFIG, LOGGER_MANAGER } from './constants/tokens.constant';
+export { LEVEL_COLORS } from './constants/level-colors.constant';
 
 // ============================================================================
 // Utils
@@ -57,12 +60,8 @@ export { SimpleFormatter } from './formatters';
 // Transporters
 // ============================================================================
 export { ConsoleTransporter } from './transporters';
-export type { ConsoleTransporterOptions } from './transporters';
-
 export { SilentTransporter } from './transporters';
-
 export { StorageTransporter } from './transporters';
-export type { StorageTransporterOptions } from './transporters';
 
 // ============================================================================
 // React Hooks

@@ -6,4 +6,4 @@
  * @see https://prettier.io/docs/en/configuration.html
  */
 
-export default "@nesvel/prettier-config";
+export default '@nesvel/prettier-config';
