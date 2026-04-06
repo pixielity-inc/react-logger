@@ -22,16 +22,16 @@ importers:
         version: link:../../packages/logger
       '@abdokouta/react-redis':
         specifier: ^1.1.2
-        version: 1.1.2(@abdokouta/ts-container-react@1.2.0(react@19.2.4))(react@19.2.4)
+        version: 1.1.2(@abdokouta/ts-container-react@1.2.1(react@19.2.4))(react@19.2.4)
       '@abdokouta/ts-application':
         specifier: ^1.2.0
-        version: 1.2.0
+        version: 1.2.1
       '@abdokouta/ts-container':
         specifier: ^1.2.0
-        version: 1.2.0
+        version: 1.2.1
       '@abdokouta/ts-container-react':
         specifier: ^1.2.0
-        version: 1.2.0(react@19.2.4)
+        version: 1.2.1(react@19.2.4)
       '@heroui/react':
         specifier: 3.0.2
         version: 3.0.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.2.2)
@@ -222,25 +222,15 @@ packages:
       '@abdokouta/ts-container':
         optional: true
 
-  '@abdokouta/ts-application@1.2.0':
-    resolution: {integrity: sha512-iCOIoznw9Uio2uEj3oA+qUSoP/U1yrtuVusFXy748h1t7fqHjiZ17NZhqBluFaTSshetukBzilzcDHq+N6fFYQ==}
+  '@abdokouta/ts-application@1.2.1':
+    resolution: {integrity: sha512-NnOFTbSg28jV+al8twJTN724ur7qAsg+DRWw8uFHwVBDD9Gur4SfdbsXatarZQOhlB7hY9v1Rrs1xv4lrNlRGA==}
     engines: {node: '>=18'}
-
-  '@abdokouta/ts-container-react@1.2.0':
-    resolution: {integrity: sha512-rKUE/5VLRYTM+RQgt7zvVoniw60wnnfOz8AIxN5MdV21O/h3GLeHKV1fVaSXUkk7CXPzEq2zHKVHxveMOmXRyg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      react: ^18.0.0 || ^19.0.0
 
   '@abdokouta/ts-container-react@1.2.1':
     resolution: {integrity: sha512-KZXPlUh2p8jE+To9i16B1Q6mkbUe96zMC+6PrGJHBC22xUxpNLSHIMQFh9M0JiZ27MCJ5+0VXw0EZ9j0iBnP5w==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
-
-  '@abdokouta/ts-container@1.2.0':
-    resolution: {integrity: sha512-9jE/g0bkW+urxg9AzdsS91663qTFBileOIqUWpTtSRiLFfeusI+pLVB9jZS0GvKrfKiPUdlzyvMO+67yZm/8Fw==}
-    engines: {node: '>=18'}
 
   '@abdokouta/ts-container@1.2.1':
     resolution: {integrity: sha512-d63ST4CzHa5o1tVbX3znWmxum3cHz7PHzj0gr0o/rEnrZlZIYda+HBBLFOdeHL42+WrHziH3Um3qN0V1T/uf7Q==}
@@ -3620,13 +3610,13 @@ packages:
 
 snapshots:
 
-  '@abdokouta/react-redis@1.1.2(@abdokouta/ts-container-react@1.2.0(react@19.2.4))(react@19.2.4)':
+  '@abdokouta/react-redis@1.1.2(@abdokouta/ts-container-react@1.2.1(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@abdokouta/react-support': 2.1.0(@abdokouta/ts-container@1.2.1)
       '@abdokouta/ts-container': 1.2.1
       '@upstash/redis': 1.37.0
     optionalDependencies:
-      '@abdokouta/ts-container-react': 1.2.0(react@19.2.4)
+      '@abdokouta/ts-container-react': 1.2.1(react@19.2.4)
       react: 19.2.4
 
   '@abdokouta/react-support@2.1.0(@abdokouta/ts-container@1.2.1)':
@@ -3635,23 +3625,14 @@ snapshots:
     optionalDependencies:
       '@abdokouta/ts-container': 1.2.1
 
-  '@abdokouta/ts-application@1.2.0':
+  '@abdokouta/ts-application@1.2.1':
     dependencies:
-      '@abdokouta/ts-container': 1.2.0
-
-  '@abdokouta/ts-container-react@1.2.0(react@19.2.4)':
-    dependencies:
-      '@abdokouta/ts-container': 1.2.0
-      react: 19.2.4
+      '@abdokouta/ts-container': 1.2.1
 
   '@abdokouta/ts-container-react@1.2.1(react@19.2.4)':
     dependencies:
       '@abdokouta/ts-container': 1.2.1
       react: 19.2.4
-
-  '@abdokouta/ts-container@1.2.0':
-    dependencies:
-      reflect-metadata: 0.2.2
 
   '@abdokouta/ts-container@1.2.1':
     dependencies:
